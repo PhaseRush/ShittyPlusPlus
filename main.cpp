@@ -3,6 +3,8 @@
 #include <chrono>
 #include <math.h>
 
+#include "headers/BenchmarkResult.h"
+
 using ull = unsigned long long;
 
 ull linear(ull n) {
@@ -23,11 +25,11 @@ ull nlogn(ull n) {
     return acc;
 }
 
-std::chrono::duration<double> runBench(ull N) {
+BenchmarkResult runBench(ull N, auto func) {
     auto tic = std::chrono::steady_clock::now();
-    const ull res = nlogn(N);
+    const ull res = func(N);
     auto toc = std::chrono::steady_clock::now();
-    return toc - tic;
+    return BenchmarkResult(N, res, toc - tic);
 }
 
 int main() {
@@ -35,11 +37,9 @@ int main() {
     const ull N = 1000000;
     std::cout << "Running benchmark with N = " << N << '\n';
 
-    auto tic = std::chrono::steady_clock::now();
-    const ull res = nlogn(N);
-    auto toc = std::chrono::steady_clock::now();
+    const BenchmarkResult bench = runBench(N, linear);
 
-    std::cout << "Result = " << res << '\n';
-    std::cout << (toc - tic).count() << "ms" << '\n';
+    std::cout << "Result = " << bench.getResult() << '\n';
+    std::cout << bench.getDuration().count() << "ms" << '\n';
     return 0;
 }

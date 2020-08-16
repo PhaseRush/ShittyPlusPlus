@@ -12,6 +12,9 @@ private:
     std::chrono::duration<double> duration{};
 public:
     BenchmarkResult(ull N, ull result, std::chrono::duration<double> duration);
+    ull getN() const;
+    ull getResult() const;
+    std::chrono::duration<double> getDuration() const;
 };
 
 
