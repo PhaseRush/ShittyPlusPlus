@@ -2,6 +2,7 @@
 #define BENCH_TEST_CPP_BENCHMARKRESULT_H
 
 #include "QualityOfLife.h"
+#include <chrono>
 
 using namespace phaserush;
 
