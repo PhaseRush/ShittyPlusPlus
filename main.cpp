@@ -1,13 +1,14 @@
 #include <iostream>
-#include <limits.h>
 #include <chrono>
-#include <math.h>
+#include <map>
+#include <string>
+#include <functional>
 
 #include "headers/BenchmarkResult.h"
 
-using ull = unsigned long long;
+std::map<std::string, std::function<ull(ull)>> initFunctions();
 
-ull linear(ull n) {
+[[maybe_unused]] ull linear(const ull n) {
     ull acc = 0;
     for (ull i = 0; i < n; ++i) {
         ++acc;
@@ -15,7 +16,7 @@ ull linear(ull n) {
     return acc;
 }
 
-ull nlogn(ull n) {
+[[maybe_unused]] ull nlogn(const ull n) {
     ull acc = 0;
     for (ull i = 0; i < n; ++i) {
         for (ull j = 1; j < n; j *= 2) {
@@ -25,21 +26,30 @@ ull nlogn(ull n) {
     return acc;
 }
 
-BenchmarkResult runBench(ull N, auto func) {
-    auto tic = std::chrono::steady_clock::now();
+BenchmarkResult runBench(const ull N, const auto func) {
+    const auto tic = std::chrono::steady_clock::now();
     const ull res = func(N);
-    auto toc = std::chrono::steady_clock::now();
+    const auto toc = std::chrono::steady_clock::now();
     return BenchmarkResult(N, res, toc - tic);
 }
 
 int main() {
-//    const ull N = ULLONG_MAX / (2u << 16u);
-    const ull N = 1000000;
-    std::cout << "Running benchmark with N = " << N << '\n';
+    const ull N = 2ull << 25ull;
+    const std::map<std::string, std::function<ull(ull)>> functions = initFunctions();
+    for (auto const&[name, function] : functions) {
+        const BenchmarkResult bench = runBench(N, function);
+        std::cout << "Running Function: " << name << "\n"
+                  << "N = " << N
+                  << "\tResult = " << bench.getResult() << "\t"
+                  << bench.getDuration().count() << "s" << '\n';
+    }
 
-    const BenchmarkResult bench = runBench(N, linear);
-
-    std::cout << "Result = " << bench.getResult() << '\n';
-    std::cout << bench.getDuration().count() << "ms" << '\n';
     return 0;
+}
+
+std::map<std::string, std::function<ull(ull)>> initFunctions() {
+    std::map<std::string, std::function<ull(ull)>> functions;
+    functions.emplace("linear", linear);
+    functions.emplace("nlogn", nlogn);
+    return functions;
 }
