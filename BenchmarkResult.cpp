@@ -15,8 +15,11 @@ ull BenchmarkResult::getResult() const {
     return this->result;
 }
 
+std::function<ull(ull)> BenchmarkResult::getFunction() const {
+    return this->function;
+}
+
 std::chrono::duration<double> BenchmarkResult::getDuration() const {
     return this->duration;
 }
-
 
