@@ -1,7 +1,7 @@
 #ifndef BENCH_TEST_CPP_QUALITYOFLIFE_H
 #define BENCH_TEST_CPP_QUALITYOFLIFE_H
 
-namespace myMath {
+namespace numbers {
 
     using ull = unsigned long long;
 }

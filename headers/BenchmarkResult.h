@@ -5,7 +5,7 @@
 #include <chrono>
 #include <functional>
 
-using namespace myMath;
+using namespace numbers;
 
 class BenchmarkResult {
 private:
