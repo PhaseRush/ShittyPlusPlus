@@ -1,0 +1,10 @@
+Running Function: constant
+N = 2097152     Result = 1      1e-07s
+Running Function: linear
+N = 2097152     Result = 2097152        0.0021606s
+Running Function: logn
+N = 2097152     Result = 21     3e-07s
+Running Function: nlogn
+N = 2097152     Result = 44040192       0.049932s
+Running Function: nsquared_triangular
+N = 2097152     Result = 2199024304128  2270.88s
