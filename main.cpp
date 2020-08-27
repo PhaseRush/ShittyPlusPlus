@@ -26,17 +26,21 @@ std::vector<std::unique_ptr<Benchmark>> benches(const ull N) {
 int main() {
     const ull N = 2ull << 10ull;
     const std::vector<std::unique_ptr<Benchmark>> benchmarks = benches(N);
+
+    const int8_t nameWidth = 25, sizeWidth = 15, resultWidth = 30, timeWidth = 20;
+
     std::cout << std::left
-              << std::setw(25) << "Name"
-              << std::setw(15) << "Input Size (N)"
-              << std::setw(30) << "Numeric Result"
-              << std::setw(20) << "Time (seconds)" << "\n";
+              << std::setw(nameWidth) << "Name"
+              << std::setw(sizeWidth) << "Input Size (N)"
+              << std::setw(resultWidth) << "Numeric Result"
+              << std::setw(timeWidth) << "Time (seconds)" << "\n";
+
     for (auto &benchmark : benchmarks) {
         auto result = benchmark->getResult();
-        std::cout << std::setw(25) << benchmark->getName()
-                  << std::setw(15) << benchmark->getN()
-                  << std::setw(30) << result.numericResult
-                  << std::setw(20) << benchmark->getResult().duration.count() << "\n";
+        std::cout << std::setw(nameWidth) << benchmark->getName()
+                  << std::setw(sizeWidth) << benchmark->getN()
+                  << std::setw(resultWidth) << result.numericResult
+                  << std::setw(timeWidth) << benchmark->getResult().duration.count() << "\n";
     }
 
     return 0;
