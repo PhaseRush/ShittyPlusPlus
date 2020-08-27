@@ -1,92 +1,38 @@
 #include <iostream>
-#include <chrono>
 #include <map>
 #include <string>
-#include <functional>
+#include <memory>
+#include <iomanip>
 
-#include "headers/BenchmarkResult.h"
+#include "headers/Benchmark.h"
+#include "benchmarks/ConstantBench.h"
+#include "benchmarks/LognBench.h"
+#include "benchmarks/LinearBench.h"
+#include "benchmarks/NlognBench.h"
+#include "benchmarks/NsquaredBench.h"
+#include "benchmarks/NsquaredTriangularBench.h"
 
-std::map<std::string, std::function<ull(ull)>> initFunctions();
-
-ull constant([[maybe_unused]] const ull n) {
-    return 1;
-}
-
-ull logn(const ull n) {
-    ull acc = 0;
-    for (ull i = 1; i < n; i *= 2) {
-        ++acc;
-    }
-    return acc;
-}
-
-ull linear(const ull n) {
-    ull acc = 0;
-    for (ull i = 0; i < n; ++i) {
-        ++acc;
-    }
-    return acc;
-}
-
-ull nlogn(const ull n) {
-    ull acc = 0;
-    for (ull i = 0; i < n; ++i) {
-        for (ull j = 1; j < n; j *= 2) {
-            ++acc;
-        }
-    }
-    return acc;
-}
-
-ull nsquared_triangular(const ull n) {
-    ull acc = 0;
-    for (ull i = 0; i < n; ++i) {
-        for (ull j = i; j < n; ++j) {
-            ++acc;
-        }
-    }
-    return acc;
-}
-
-ull nsquared(const ull n) {
-    ull acc = 0;
-    for (ull i = 0; i < n; ++i) {
-        for (ull j = 0; j < n; ++j) {
-            ++acc;
-        }
-//        if (i % 1000 == 0) std::cout << i << " ";
-    }
-    return acc;
-}
-
-BenchmarkResult runBench(const ull N, const auto func) {
-    const auto tic = std::chrono::steady_clock::now();
-    const ull res = func(N);
-    const auto toc = std::chrono::steady_clock::now();
-    return BenchmarkResult(N, res, toc - tic);
+std::vector<std::unique_ptr<Benchmark>> benches(const ull N) {
+    std::vector<std::unique_ptr<Benchmark>> functions;
+    functions.push_back(std::make_unique<ConstantBench>(N));
+    functions.push_back(std::make_unique<LognBench>(N));
+    functions.push_back(std::make_unique<LinearBench>(N));
+    functions.push_back(std::make_unique<NlognBench>(N));
+    functions.push_back(std::make_unique<NsquaredBench>(N));
+    functions.push_back(std::make_unique<NsquaredTriangularBench>(N));
+    return functions;
 }
 
 int main() {
-    const ull N = 2ull << 20ull;
-    const std::map<std::string, std::function<ull(ull)>> functions = initFunctions();
-    for (auto const&[name, function] : functions) {
-        const BenchmarkResult bench = runBench(N, function);
-        std::cout << "Running Function: " << name << "\n"
-                  << "N = " << bench.getN() << "\t"
-                  << "Result = " << bench.getResult() << "\t"
-                  << bench.getDuration().count() << "s" << "\n";
+    const ull N = 2ull << 10ull;
+    const std::vector<std::unique_ptr<Benchmark>> benchmarks = benches(N);
+    for (auto &benchmark : benchmarks) {
+        auto result = benchmark->getResult();
+        std::cout << std::setw(25) << benchmark->getName()// << "|"
+                  << std::setw(10) << "N = " << benchmark->getN()// << "|"
+                  << std::setw(20) << "Result = " << result.numericResult// << "|"
+                  << std::setw(20) << "Time = " << benchmark->getResult().duration.count() << "s" << "\n";
     }
 
     return 0;
-}
-
-std::map<std::string, std::function<ull(ull)>> initFunctions() {
-    std::map<std::string, std::function<ull(ull)>> functions;
-    functions.emplace("constant", constant);
-    functions.emplace("logn", logn);
-    functions.emplace("linear", linear);
-    functions.emplace("nlogn", nlogn);
-    functions.emplace("nsquared_triangular", nsquared_triangular);
-//    functions.emplace("nsquared", nsquared);
-    return functions;
 }
