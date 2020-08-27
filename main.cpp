@@ -2,15 +2,15 @@
 #include <map>
 #include <string>
 #include <memory>
+#include <iomanip>
 
-#include "headers/BenchmarkResult.h"
 #include "headers/Benchmark.h"
-#include "benchmarks/ConstantBench.cpp"
-#include "benchmarks/LognBench.cpp"
-#include "benchmarks/LinearBench.cpp"
-#include "benchmarks/NlognBench.cpp"
-#include "benchmarks/NsquaredBench.cpp"
-#include "benchmarks/NsquaredTriangularBench.cpp"
+#include "benchmarks/ConstantBench.h"
+#include "benchmarks/LognBench.h"
+#include "benchmarks/LinearBench.h"
+#include "benchmarks/NlognBench.h"
+#include "benchmarks/NsquaredBench.h"
+#include "benchmarks/NsquaredTriangularBench.h"
 
 std::vector<std::unique_ptr<Benchmark>> benches(const ull N) {
     std::vector<std::unique_ptr<Benchmark>> functions;
@@ -28,10 +28,10 @@ int main() {
     const std::vector<std::unique_ptr<Benchmark>> benchmarks = benches(N);
     for (auto &benchmark : benchmarks) {
         auto result = benchmark->getResult();
-        std::cout << benchmark->getName() << "\t"
-                  << "N = " << benchmark->getN() << "\t"
-                  << "Result = " << result.getNumericResult() << "\t"
-                  << "Time = " << benchmark->getResult().getDuration().count() << "s" << "\n";
+        std::cout << std::setw(25) << benchmark->getName()// << "|"
+                  << std::setw(10) << "N = " << benchmark->getN()// << "|"
+                  << std::setw(20) << "Result = " << result.numericResult// << "|"
+                  << std::setw(20) << "Time = " << benchmark->getResult().duration.count() << "s" << "\n";
     }
 
     return 0;

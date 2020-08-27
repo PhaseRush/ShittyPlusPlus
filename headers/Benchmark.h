@@ -4,29 +4,38 @@
 #include <functional>
 #include <chrono>
 #include "QualityOfLife.h"
-#include "BenchmarkResult.h"
 
 using namespace numbers;
 
+
 class Benchmark {
+public:
+    struct BenchmarkResult {
+        ull numericResult;
+        std::chrono::duration<double> duration;
+    };
+
 private:
     virtual ull function(ull N) = 0;
 
     bool hasRun = false;
     ull N;
-    BenchmarkResult result{};
+    BenchmarkResult result;
 
 public:
     Benchmark(ull N) : N(N) {}
 
     virtual std::string getName() = 0;
 
+
     void runBenchmark() {
         if (!hasRun) {
             const auto tic = std::chrono::steady_clock::now();
             const ull res = function(N);
             const auto toc = std::chrono::steady_clock::now();
-            result = BenchmarkResult(res, toc - tic);
+            result = BenchmarkResult();
+            result.numericResult = res;
+            result.duration = toc - tic;
             hasRun = true;
         }
     }
