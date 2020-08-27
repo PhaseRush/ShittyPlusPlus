@@ -14,23 +14,24 @@ private:
 
     bool hasRun = false;
     ull N;
-    BenchmarkResult *result{};
+    BenchmarkResult result{};
 
 public:
     Benchmark(ull N) : N(N) {}
+
+    virtual std::string getName() = 0;
 
     void runBenchmark() {
         if (!hasRun) {
             const auto tic = std::chrono::steady_clock::now();
             const ull res = function(N);
             const auto toc = std::chrono::steady_clock::now();
-            auto tempResult = BenchmarkResult(res, toc - tic);
-            result = &tempResult;
+            result = BenchmarkResult(res, toc - tic);
             hasRun = true;
         }
     }
 
-    BenchmarkResult *getResult() {
+    const BenchmarkResult &getResult() {
         if (!hasRun) runBenchmark();
         return result;
     }

@@ -12,6 +12,8 @@ private:
     ull numericResult;
     std::chrono::duration<double> duration{};
 public:
+    BenchmarkResult() {}
+
     BenchmarkResult(ull result, std::chrono::duration<double> duration) :
             numericResult(result), duration(duration) {};
 
