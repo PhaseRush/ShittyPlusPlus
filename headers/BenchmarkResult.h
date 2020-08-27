@@ -9,19 +9,19 @@ using namespace numbers;
 
 class BenchmarkResult {
 private:
-    ull N, result;
-    std::function<ull(ull)> function;
+    ull numericResult;
     std::chrono::duration<double> duration{};
 public:
-    BenchmarkResult(ull N, ull result, std::chrono::duration<double> duration);
+    BenchmarkResult(ull result, std::chrono::duration<double> duration) :
+            numericResult(result), duration(duration) {};
 
-    [[nodiscard]] ull getN() const;
+    [[nodiscard]] ull getNumericResult() const {
+        return numericResult;
+    }
 
-    [[nodiscard]] ull getResult() const;
-
-    [[nodiscard]] std::function<ull(ull)> getFunction() const;
-
-    [[nodiscard]] std::chrono::duration<double> getDuration() const;
+    [[nodiscard]] std::chrono::duration<double> getDuration() const {
+        return duration;
+    }
 };
 
 
