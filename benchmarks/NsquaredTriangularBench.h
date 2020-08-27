@@ -2,8 +2,8 @@
 
 class NsquaredTriangularBench : public Benchmark {
 private:
-    ull function(ull N) override {
-        ull acc = 0;
+    uint64_t function(uint64_t N) override {
+        uint64_t acc = 0;
         for (int i = 0; i < N; ++i) {
             for (int j = i; j < N; ++j) {
                 ++acc;
@@ -17,7 +17,7 @@ private:
     }
 
 public:
-    NsquaredTriangularBench(const ull N) : Benchmark(N) {
+    NsquaredTriangularBench(const uint64_t N) : Benchmark(N) {
 
     }
 };

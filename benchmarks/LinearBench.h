@@ -2,8 +2,8 @@
 
 class LinearBench : public Benchmark {
 private:
-    ull function(ull N) override {
-        ull acc = 0;
+    uint64_t function(uint64_t N) override {
+        uint64_t acc = 0;
         for (int i = 0; i < N; ++i) {
             ++acc;
         }
@@ -15,7 +15,7 @@ private:
     }
 
 public:
-    LinearBench(const ull N) : Benchmark(N) {
+    LinearBench(const uint64_t N) : Benchmark(N) {
 
     }
 };

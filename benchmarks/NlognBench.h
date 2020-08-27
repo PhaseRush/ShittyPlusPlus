@@ -2,8 +2,8 @@
 
 class NlognBench : public Benchmark {
 private:
-    ull function(ull N) override {
-        ull acc = 0;
+    uint64_t function(uint64_t N) override {
+        uint64_t acc = 0;
         for (int i = 0; i < N; ++i) {
             for (int j = 1; j < N; j *= 2) {
                 ++acc;
@@ -17,7 +17,7 @@ private:
     }
 
 public:
-    NlognBench(const ull N) : Benchmark(N) {
+    NlognBench(const uint64_t N) : Benchmark(N) {
 
     }
 };

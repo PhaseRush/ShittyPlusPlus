@@ -2,7 +2,7 @@
 
 class ConstantBench : public Benchmark {
 private:
-    ull function(ull N) override {
+    uint64_t function(uint64_t N) override {
         return 1;
     }
 
@@ -11,7 +11,7 @@ private:
     }
 
 public:
-    ConstantBench(const ull N) : Benchmark(N) {
+    ConstantBench(const uint64_t N) : Benchmark(N) {
 
     }
 };

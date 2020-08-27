@@ -12,7 +12,7 @@
 #include "benchmarks/NsquaredBench.h"
 #include "benchmarks/NsquaredTriangularBench.h"
 
-std::vector<std::unique_ptr<Benchmark>> benches(const ull N) {
+std::vector<std::unique_ptr<Benchmark>> benches(const uint64_t N) {
     std::vector<std::unique_ptr<Benchmark>> functions;
     functions.push_back(std::make_unique<ConstantBench>(N));
     functions.push_back(std::make_unique<LognBench>(N));
@@ -24,10 +24,10 @@ std::vector<std::unique_ptr<Benchmark>> benches(const ull N) {
 }
 
 int main() {
-    const ull N = 2ull << 10ull;
+    const uint64_t N = 2ull << 20ull;
     const std::vector<std::unique_ptr<Benchmark>> benchmarks = benches(N);
 
-    const int8_t nameWidth = 25, sizeWidth = 15, resultWidth = 30, timeWidth = 20;
+    const int8_t nameWidth = 25, sizeWidth = 20, resultWidth = 30, timeWidth = 20;
 
     std::cout << std::left
               << std::setw(nameWidth) << "Name"

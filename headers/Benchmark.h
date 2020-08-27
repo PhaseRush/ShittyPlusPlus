@@ -3,6 +3,7 @@
 
 #include <functional>
 #include <chrono>
+#include <cstdint>
 #include "QualityOfLife.h"
 
 using namespace numbers;
@@ -11,26 +12,26 @@ using namespace numbers;
 class Benchmark {
 public:
     struct Result {
-        ull numericResult;
+        uint64_t numericResult;
         std::chrono::duration<double> duration;
     };
 
 private:
-    virtual ull function(ull N) = 0;
+    virtual uint64_t function(uint64_t N) = 0;
 
     bool hasRun = false;
-    ull N;
+    uint64_t N;
     Result result;
 
 public:
-    Benchmark(ull N) : N(N) {}
+    Benchmark(uint64_t N) : N(N) {}
 
     virtual std::string getName() = 0;
 
     void runBenchmark() {
         if (!hasRun) {
             const auto tic = std::chrono::steady_clock::now();
-            const ull res = function(N);
+            const uint64_t res = function(N);
             const auto toc = std::chrono::steady_clock::now();
             result = Result();
             result.numericResult = res;
@@ -44,7 +45,7 @@ public:
         return result;
     }
 
-    [[nodiscard]] ull getN() const {
+    [[nodiscard]] uint64_t getN() const {
         return N;
     }
 

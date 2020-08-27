@@ -3,7 +3,6 @@
 
 namespace numbers {
 
-    using ull = unsigned long long;
 }
 
 #endif //BENCH_TEST_CPP_QUALITYOFLIFE_H
