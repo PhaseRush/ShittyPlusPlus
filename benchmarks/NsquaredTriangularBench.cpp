@@ -13,7 +13,7 @@ private:
     }
 
     std::string getName() override {
-        return "N Squared - Triangular variant";
+        return "N Squared - Triangular";
     }
 
 public:
