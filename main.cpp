@@ -18,20 +18,25 @@ std::vector<std::unique_ptr<Benchmark>> benches(const ull N) {
     functions.push_back(std::make_unique<LognBench>(N));
     functions.push_back(std::make_unique<LinearBench>(N));
     functions.push_back(std::make_unique<NlognBench>(N));
-    functions.push_back(std::make_unique<NsquaredBench>(N));
     functions.push_back(std::make_unique<NsquaredTriangularBench>(N));
+    functions.push_back(std::make_unique<NsquaredBench>(N));
     return functions;
 }
 
 int main() {
     const ull N = 2ull << 10ull;
     const std::vector<std::unique_ptr<Benchmark>> benchmarks = benches(N);
+    std::cout << std::left
+              << std::setw(25) << "Name"
+              << std::setw(15) << "Input Size (N)"
+              << std::setw(30) << "Numeric Result"
+              << std::setw(20) << "Time (seconds)" << "\n";
     for (auto &benchmark : benchmarks) {
         auto result = benchmark->getResult();
-        std::cout << std::setw(25) << benchmark->getName()// << "|"
-                  << std::setw(10) << "N = " << benchmark->getN()// << "|"
-                  << std::setw(20) << "Result = " << result.numericResult// << "|"
-                  << std::setw(20) << "Time = " << benchmark->getResult().duration.count() << "s" << "\n";
+        std::cout << std::setw(25) << benchmark->getName()
+                  << std::setw(15) << benchmark->getN()
+                  << std::setw(30) << result.numericResult
+                  << std::setw(20) << benchmark->getResult().duration.count() << "\n";
     }
 
     return 0;
