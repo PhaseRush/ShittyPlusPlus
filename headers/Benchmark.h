@@ -4,10 +4,6 @@
 #include <functional>
 #include <chrono>
 #include <cstdint>
-#include "QualityOfLife.h"
-
-using namespace numbers;
-
 
 class Benchmark {
 public:

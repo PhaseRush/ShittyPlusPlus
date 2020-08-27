@@ -1,8 +1,0 @@
-#ifndef BENCH_TEST_CPP_QUALITYOFLIFE_H
-#define BENCH_TEST_CPP_QUALITYOFLIFE_H
-
-namespace numbers {
-
-}
-
-#endif //BENCH_TEST_CPP_QUALITYOFLIFE_H
