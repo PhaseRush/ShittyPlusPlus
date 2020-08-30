@@ -3,7 +3,7 @@ project(bench_test_cpp)
 
 set(CMAKE_CXX_STANDARD 20)
 
-#set(CMAKE_CXX_FLAGS_RELEASE "-O0")
+set(CMAKE_CXX_FLAGS_RELEASE "-O0")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libstdc++ -static-libgcc")
 

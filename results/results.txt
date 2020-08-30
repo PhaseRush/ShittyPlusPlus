@@ -13,3 +13,11 @@ Linear                   4294967296          4294967296                    2e-07
 N logN                   4294967296          133143986176                  49.7292
 N Squared - Triangular   4294967296          9223372039002259456           1.75521
 N Squared                4294967296          0                             0.887035
+
+Name                     Input Size (N)      Numeric Result                Time (seconds)
+Constant                 2097152             1                             1e-07
+LogN                     2097152             21                            2e-07
+Linear                   2097152             2097152                       0.0020182
+N logN                   2097152             44040192                      0.0541249
+N Squared - Triangular   2097152             2199024304128                 2117.13
+N Squared                2097152             4398046511104                 4308.43
