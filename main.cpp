@@ -24,7 +24,7 @@ std::vector<std::unique_ptr<Benchmark>> benches(const uint64_t N) {
 }
 
 int main() {
-    const uint64_t N = 2ull << 20ull;
+    const uint64_t N = 2ull << 30ull;
     const std::vector<std::unique_ptr<Benchmark>> benchmarks = benches(N);
 
     const int8_t nameWidth = 25, sizeWidth = 20, resultWidth = 30, timeWidth = 20;

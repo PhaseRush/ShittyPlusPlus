@@ -3,7 +3,6 @@
 
 #include <functional>
 #include <chrono>
-#include <cstdint>
 
 class Benchmark {
 public:
